@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react'
-
+import React from 'react'
+import { HiDotsHorizontal } from 'react-icons/hi'
 const UserInfo = (props) => {
-  const { users, userId, id } = props
   return (
     <div className='user-info'>
-      <img className='user-img' src='#' alt='user-image' />
-      {/* <p className='full-name'>{users[userId - 1].name}</p>
-      <p className='user-name'>@{users[userId - 1].username}</p> */}
-      <button type='btn'>...</button>
+      <p className='full-name'>
+        {props.name}
+        <span>@{props.userName}</span>
+      </p>
+
+      <button type='btn'>
+        <HiDotsHorizontal />
+      </button>
     </div>
   )
 }

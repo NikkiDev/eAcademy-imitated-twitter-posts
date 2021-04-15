@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital@0;1&display=swap');
 * {
   margin: 0;
   padding: 0;
@@ -8,39 +9,89 @@ html {
   text-transform: capitalize;
 }
 body {
-  background-color: lightblue;
+  background-color: #000000;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+.post {
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  width: 40vw;
+  border: 1px solid #2f3336;
+  padding: 0 16px;
+}
+
+.profile {
+  margin-top: 1.2rem;
+  font-size: 2rem;
+  width: 80px;
+  height: 80px;
+  background-color: #1da1f2;
+  border-radius: 50%;
+  h1 {
+    margin: 10px;
+    color: white;
+    text-align: center;
+    text-transform: uppercase;
+  }
 }
 .post-wrapper {
-  background-color: white;
-  height: 600px;
-  width: 40vw;
-  margin: 50px auto;
-  padding: 20px;
   border-radius: 10px;
+  width: 100%;
   display: flex;
+  padding: 1.2rem;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-end;
+  align-items: center;
 }
 .user-info {
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  color: white;
+  min-height: 20px;
+  span {
+    margin-left: 20px;
+    opacity: 0.7;
+  }
+  button {
+    background: none;
+    border: none;
+    padding: 5px;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
 }
 .post-content {
   text-align: center;
-  height: 500px;
-  margin: auto;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  color: white;
+
+  .post-text {
+    text-align: start;
+  }
+}
+.img {
+  width: 100%;
   .post-img {
-    margin: 20px;
-    width: 100%;
+    margin-top: 1rem;
+    border-radius: 15px;
+    max-height: 100vh;
   }
 }
 .post-options {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  width: 100%;
+  color: white;
+  padding-top: 20px;
   .options-wrapper {
     display: flex;
     span {
