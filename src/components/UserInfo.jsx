@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { HiDotsHorizontal } from 'react-icons/hi'
 const UserInfo = (props) => {
   const [isOpen, setIsOpen] = useState(false)
-  console.log(props.comments)
   return (
     <div className='user-info'>
       <p className='full-name'>
@@ -15,8 +14,10 @@ const UserInfo = (props) => {
         </button>
       ) : (
         <div className='dots'>
-          <button type='button'>Liked</button>
-          <button type='button'>button</button>
+          <button type='button'>liked</button>
+          <button type='button' onClick={props.showPost}>
+            tweet
+          </button>
         </div>
       )}
     </div>

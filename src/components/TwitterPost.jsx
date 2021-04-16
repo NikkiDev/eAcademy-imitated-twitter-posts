@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './TwitterPost.scss'
 import PostContent from './PostContent'
 import PostOptions from './PostOptions'
 import UserInfo from './UserInfo'
 import PostComment from './PostComment'
 
-// const postsUrl = 'https://jsonplaceholder.typicode.com/posts'
-// const photosUrl = 'https://jsonplaceholder.typicode.com/photos'
-// const commentsUrl = 'https://jsonplaceholder.typicode.com/comments'
-// const usersUrl = 'https://jsonplaceholder.typicode.com/users'
-
 const TwitterPost = (props) => {
+  const postRef = useRef(null)
   const [post, setPost] = useState('')
   const [pic, setPic] = useState('')
   const [comments, setComments] = useState(null)
   const [user, setUser] = useState('')
   const [isComment, setIsComment] = useState(false)
-
+  const showPost = () => {
+    const somePost = props.posts.filter((post) => post.id === props.postId)
+    props.setPosts(somePost)
+    isComment ? setIsComment(false) : setIsComment(true)
+  }
   const getPost = async (id) => {
     const response = await fetch(
       `https://jsonplaceholder.typicode.com/posts/${id}`
@@ -50,7 +50,7 @@ const TwitterPost = (props) => {
     const newPost = await getPost(id)
     const newPhoto = await getPhoto(newPost.id)
     const newUser = await getUser(newPost.userId)
-    const newComment = await getComment(newPost.userId)
+    const newComment = await getComment(newPost.id)
     setPost(newPost)
     setUser(newUser)
     setComments(newComment)
@@ -64,34 +64,45 @@ const TwitterPost = (props) => {
     user &&
     comments &&
     pic && (
-      <article className='post'>
-        <div className='profile'>
-          <h1>{user.name.charAt(0)}</h1>
+      <article ref={postRef} className='post'>
+        <div className='somepost'>
+          <div className='profile'>
+            <h1>{user.name.charAt(0)}</h1>
+          </div>
+          <div className='post-wrapper' onClick={showPost}>
+            <UserInfo
+              name={user.name}
+              userName={user.username}
+              showPost={showPost}
+            />
+            <PostContent
+              title={post.title}
+              body={post.body}
+              postPic={pic.url}
+            />
+            <PostOptions
+              setIsComment={setIsComment}
+              isComment={isComment}
+              comments={comments}
+            />
+          </div>
         </div>
-        <div className='post-wrapper'>
-          <UserInfo
-            name={user.name}
-            userName={user.username}
-            comments={comments}
-          />
-          <PostContent title={post.title} body={post.body} postPic={pic.url} />
-          <PostOptions setIsComment={setIsComment} isComment={isComment} />
-          {isComment &&
-            comments.map((comment, idx) => (
-              <div key={idx} className='comment-section'>
-                <div className='profile'>
-                  <h1>{comment.email.charAt(0)}</h1>
-                </div>
-                <div>
-                  <PostComment
-                    name={comment.email}
-                    body={comment.body}
-                    userName={comment.email}
-                  />
-                </div>
+
+        {isComment &&
+          comments.map((comment, idx) => (
+            <div key={idx} className='comment-section'>
+              <div className='profile'>
+                <h1>{comment.email.charAt(0)}</h1>
               </div>
-            ))}
-        </div>
+              <div>
+                <PostComment
+                  name={comment.email}
+                  body={comment.body}
+                  userName={comment.email}
+                />
+              </div>
+            </div>
+          ))}
       </article>
     )
   )

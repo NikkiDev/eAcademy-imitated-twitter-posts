@@ -12,7 +12,7 @@ const PostOptions = (props) => {
         <span className='option-icon'>
           <FaRegComment />
         </span>
-        <p className='stat-number'>2323</p>
+        <p className='stat-number'>5</p>
       </div>
       <div className='options-wrapper'>
         <span className='option-icon'>

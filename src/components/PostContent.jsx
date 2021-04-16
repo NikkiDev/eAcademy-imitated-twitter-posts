@@ -1,7 +1,7 @@
 import React from 'react'
 
 const PostContent = (props) => {
-  const { id, title, body, postPic, comment } = props
+  const { title, body, postPic } = props
   return (
     <div className='post-content'>
       <h4 className='post-text'>{title}</h4>

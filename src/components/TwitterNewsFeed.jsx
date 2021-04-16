@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import TwitterPost from './TwitterPost'
 import { AiOutlineHome, AiOutlineNumber } from 'react-icons/ai'
 import { IoIosNotificationsOutline } from 'react-icons/io'
@@ -7,7 +7,20 @@ import { RiFileListLine } from 'react-icons/ri'
 import { CgProfile, CgMoreO } from 'react-icons/cg'
 import { FaTwitter } from 'react-icons/fa'
 const TwitterNewsFeed = () => {
-  const someArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+  const [posts, setPosts] = useState([])
+  const getPosts = async () => {
+    const response = await fetch('http://jsonplaceholder.typicode.com/posts')
+    const data = response.json()
+    return data
+  }
+
+  useEffect(() => {
+    const newPosts = async () => {
+      const newPostsArr = await getPosts()
+      setPosts(newPostsArr)
+    }
+    newPosts()
+  }, [])
   return (
     <div className='news-feed'>
       <header className='header'>
@@ -51,8 +64,15 @@ const TwitterNewsFeed = () => {
         <button type='button'>Tweet</button>
       </header>
       <div>
-        {someArr.map((idx) => {
-          return <TwitterPost key={idx} postId={idx} />
+        {posts.map((post) => {
+          return (
+            <TwitterPost
+              key={post.id}
+              postId={post.id}
+              posts={posts}
+              setPosts={setPosts}
+            />
+          )
         })}
       </div>
     </div>
