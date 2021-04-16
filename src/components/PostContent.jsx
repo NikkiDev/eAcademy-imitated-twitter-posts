@@ -1,15 +1,16 @@
 import React from 'react'
 
 const PostContent = (props) => {
-  const { id, title, body, postImg } = props
+  const { id, title, body, postPic, comment } = props
   return (
-    <div key={id} className='post-content'>
-      <div>
-        <p className='post-text'>{body}</p>
-      </div>
-      <div className='img'>
-        <img className='post-img' src={postImg} alt='some-picture' />
-      </div>
+    <div className='post-content'>
+      <h4 className='post-text'>{title}</h4>
+      <p className='post-text'>{body}</p>
+      {postPic && (
+        <div className='img'>
+          <img className='post-img' src={postPic} alt='some-pic' />
+        </div>
+      )}
     </div>
   )
 }

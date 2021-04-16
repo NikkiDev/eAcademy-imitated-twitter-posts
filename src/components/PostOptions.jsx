@@ -5,7 +5,10 @@ import { AiOutlineHeart, AiFillHeart, AiOutlineUpload } from 'react-icons/ai'
 const PostOptions = (props) => {
   return (
     <div className='post-options'>
-      <div className='options-wrapper'>
+      <div
+        className='options-wrapper'
+        onClick={() => props.setIsComment(!props.isComment)}
+      >
         <span className='option-icon'>
           <FaRegComment />
         </span>
