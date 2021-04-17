@@ -12,10 +12,20 @@ const TwitterPost = (props) => {
   const [comments, setComments] = useState(null)
   const [user, setUser] = useState('')
   const [isComment, setIsComment] = useState(false)
+  const [isPost, setIsPost] = useState(true)
   const showPost = () => {
-    const somePost = props.posts.filter((post) => post.id === props.postId)
-    props.setPosts(somePost)
-    isComment ? setIsComment(false) : setIsComment(true)
+    console.log(isPost)
+    setIsPost(!isPost)
+    console.log(isPost)
+    console.log(props.posts)
+    const showPost = props.posts.filter((post) => post.id === props.postId)
+    isPost ? props.setPosts(showPost) : props.setPosts(props.posts)
+  }
+  const [isLike, setIsLiked] = useState(false)
+
+  const like = (e) => {
+    e.stopPropagation()
+    setIsLiked(!isLike)
   }
   const getPost = async (id) => {
     const response = await fetch(
@@ -64,16 +74,18 @@ const TwitterPost = (props) => {
     user &&
     comments &&
     pic && (
-      <article ref={postRef} className='post'>
+      <article ref={postRef} className='post' onClick={showPost}>
         <div className='somepost'>
           <div className='profile'>
             <h1>{user.name.charAt(0)}</h1>
           </div>
-          <div className='post-wrapper' onClick={showPost}>
+          <div className='post-wrapper'>
             <UserInfo
               name={user.name}
               userName={user.username}
               showPost={showPost}
+              isLike={isLike}
+              like={like}
             />
             <PostContent
               title={post.title}
@@ -83,7 +95,8 @@ const TwitterPost = (props) => {
             <PostOptions
               setIsComment={setIsComment}
               isComment={isComment}
-              comments={comments}
+              isLike={isLike}
+              like={like}
             />
           </div>
         </div>

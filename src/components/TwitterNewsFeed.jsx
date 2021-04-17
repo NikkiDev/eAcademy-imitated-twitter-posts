@@ -75,6 +75,14 @@ const TwitterNewsFeed = () => {
           )
         })}
       </div>
+      <footer>
+        <input type='text' />
+        <div>
+          <h3>
+            trends for you <span>settings</span>
+          </h3>
+        </div>
+      </footer>
     </div>
   )
 }
