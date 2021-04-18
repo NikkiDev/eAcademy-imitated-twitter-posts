@@ -1,26 +1,26 @@
-import React, { useState } from 'react'
-import { FaRegComment, FaRetweet } from 'react-icons/fa'
-import { AiOutlineHeart, AiFillHeart, AiOutlineUpload } from 'react-icons/ai'
+import React from 'react'
+import { FaRegComment } from 'react-icons/fa'
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 
 const PostOptions = (props) => {
-  const showComments = (e) => {
-    e.stopPropagation()
-    props.setIsComment(!props.isComment)
-  }
+  const commentNumber = props.comments.length
+  console.log(props.isLike)
   return (
     <div className='post-options'>
-      <div className='options-wrapper' onClick={(e) => showComments(e)}>
+      <div
+        className='options-wrapper'
+        onClick={
+          !props.isComment
+            ? (e) => props.showComments(e)
+            : (e) => props.closeComments(e)
+        }
+      >
         <span className='option-icon'>
           <FaRegComment />
         </span>
-        <p className='stat-number'>5</p>
+        <p className='stat-number'>{commentNumber}</p>
       </div>
-      <div className='options-wrapper'>
-        <span className='option-icon'>
-          <FaRetweet />
-        </span>
-        <p className='stat-number'>{Math.floor(Math.random() * 1000)}</p>
-      </div>
+
       <div className='options-wrapper' onClick={props.like}>
         {props.isLike ? (
           <div className='like'>
@@ -37,12 +37,6 @@ const PostOptions = (props) => {
             <p className='stat-number'>Like</p>
           </div>
         )}
-      </div>
-      <div className='options-wrapper'>
-        <span className='option-icon'>
-          <AiOutlineUpload />
-        </span>
-        <p className='stat-number'>{Math.floor(Math.random() * 1000)}</p>
       </div>
     </div>
   )

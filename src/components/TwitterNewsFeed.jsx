@@ -8,6 +8,8 @@ import { CgProfile, CgMoreO } from 'react-icons/cg'
 import { FaTwitter } from 'react-icons/fa'
 const TwitterNewsFeed = () => {
   const [posts, setPosts] = useState([])
+  const [postsArr, setPostsArr] = useState([])
+
   const getPosts = async () => {
     const response = await fetch('http://jsonplaceholder.typicode.com/posts')
     const data = response.json()
@@ -18,6 +20,7 @@ const TwitterNewsFeed = () => {
     const newPosts = async () => {
       const newPostsArr = await getPosts()
       setPosts(newPostsArr)
+      setPostsArr(newPostsArr)
     }
     newPosts()
   }, [])
@@ -64,25 +67,18 @@ const TwitterNewsFeed = () => {
         <button type='button'>Tweet</button>
       </header>
       <div>
-        {posts.map((post) => {
+        {postsArr.map((post) => {
           return (
             <TwitterPost
               key={post.id}
               postId={post.id}
               posts={posts}
-              setPosts={setPosts}
+              postsArr={postsArr}
+              setPostsArr={setPostsArr}
             />
           )
         })}
       </div>
-      <footer>
-        <input type='text' />
-        <div>
-          <h3>
-            trends for you <span>settings</span>
-          </h3>
-        </div>
-      </footer>
     </div>
   )
 }

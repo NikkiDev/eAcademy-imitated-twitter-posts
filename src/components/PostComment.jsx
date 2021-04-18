@@ -5,9 +5,25 @@ import UserInfo from './UserInfo'
 const PostComment = (props) => {
   return (
     <div className='post-wrapper'>
-      <UserInfo name={props.name} userName={props.userName} />
-      <PostContent body={props.body} />
-      <PostOptions />
+      <UserInfo
+        name={props.name}
+        userName={props.userName}
+        showPost={props.showPost}
+        like={props.like}
+      />
+      <PostContent
+        body={props.body}
+        title={props.title}
+        postPic={props.postPic}
+      />
+      <PostOptions
+        showComments={props.showComments}
+        isComment={props.isComment}
+        isLike={props.isLike}
+        like={props.like}
+        closeComments={props.closeComments}
+        comments={props.comments}
+      />
     </div>
   )
 }

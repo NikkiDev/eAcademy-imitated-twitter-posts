@@ -1,27 +1,34 @@
 import React, { useState, useEffect, useRef } from 'react'
 import './TwitterPost.scss'
 import PostContent from './PostContent'
-import PostOptions from './PostOptions'
 import UserInfo from './UserInfo'
 import PostComment from './PostComment'
 
 const TwitterPost = (props) => {
-  const postRef = useRef(null)
+  const commentRef = useRef(null)
   const [post, setPost] = useState('')
   const [pic, setPic] = useState('')
   const [comments, setComments] = useState(null)
   const [user, setUser] = useState('')
-  const [isComment, setIsComment] = useState(false)
-  const [isPost, setIsPost] = useState(true)
-  const showPost = () => {
-    console.log(isPost)
-    setIsPost(!isPost)
-    console.log(isPost)
-    console.log(props.posts)
-    const showPost = props.posts.filter((post) => post.id === props.postId)
-    isPost ? props.setPosts(showPost) : props.setPosts(props.posts)
-  }
+  const [isPost, setIsPost] = useState(false)
   const [isLike, setIsLiked] = useState(false)
+  const [isComment, setIsComment] = useState(false)
+  const showPost = () => {
+    setIsPost(!isPost)
+    const singlePost = props.postsArr.filter((post) => post.id === props.postId)
+
+    isPost ? props.setPostsArr(singlePost) : props.setPostsArr(props.posts)
+  }
+  const closeComments = (e) => {
+    e.stopPropagation()
+    if (commentRef.current && !commentRef.current.contains(e.target)) {
+      setIsComment(false)
+    }
+  }
+  const showComments = (e) => {
+    e.stopPropagation()
+    setIsComment(!isComment)
+  }
 
   const like = (e) => {
     e.stopPropagation()
@@ -74,48 +81,49 @@ const TwitterPost = (props) => {
     user &&
     comments &&
     pic && (
-      <article ref={postRef} className='post' onClick={showPost}>
-        <div className='somepost'>
-          <div className='profile'>
-            <h1>{user.name.charAt(0)}</h1>
-          </div>
-          <div className='post-wrapper'>
-            <UserInfo
-              name={user.name}
-              userName={user.username}
-              showPost={showPost}
-              isLike={isLike}
-              like={like}
-            />
-            <PostContent
-              title={post.title}
-              body={post.body}
-              postPic={pic.url}
-            />
-            <PostOptions
-              setIsComment={setIsComment}
-              isComment={isComment}
-              isLike={isLike}
-              like={like}
-            />
+      <article
+        className={`wholepost ${isComment ? 'point' : ''}`}
+        onClick={closeComments}
+      >
+        <div className={`${isComment ? 'background' : ''}`}></div>
+        <div className='post' onClick={showPost}>
+          <div className='somepost'>
+            <div className='profile'>
+              <h1>{user.name.charAt(0)}</h1>
+            </div>
+            <div className='post-wrapper'>
+              <PostComment
+                name={user.name}
+                userName={user.username}
+                showPost={showPost}
+                isLike={isLike}
+                like={like}
+                title={post.title}
+                body={post.body}
+                postPic={pic.url}
+                setIsComment={setIsComment}
+                isComment={isComment}
+                showComments={showComments}
+                closeComments={closeComments}
+                comments={comments}
+              />
+            </div>
           </div>
         </div>
-
-        {isComment &&
-          comments.map((comment, idx) => (
-            <div key={idx} className='comment-section'>
-              <div className='profile'>
-                <h1>{comment.email.charAt(0)}</h1>
+        <div className='comment' ref={commentRef}>
+          {isComment &&
+            comments.map((comment, idx) => (
+              <div key={idx}>
+                <div className='profile'>
+                  <h1>{comment.email.charAt(0)}</h1>
+                </div>
+                <div className='comment-section'>
+                  <UserInfo name={comment.email} userName={comment.email} />
+                  <PostContent body={comment.body} title={comment.name} />
+                </div>
               </div>
-              <div>
-                <PostComment
-                  name={comment.email}
-                  body={comment.body}
-                  userName={comment.email}
-                />
-              </div>
-            </div>
-          ))}
+            ))}
+        </div>
       </article>
     )
   )
