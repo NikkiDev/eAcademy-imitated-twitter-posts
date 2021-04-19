@@ -10,6 +10,7 @@ const PostComment = (props) => {
         userName={props.userName}
         showPost={props.showPost}
         like={props.like}
+        isLike={props.isLike}
       />
       <PostContent
         body={props.body}

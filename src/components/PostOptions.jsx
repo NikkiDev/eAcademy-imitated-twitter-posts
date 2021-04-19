@@ -4,7 +4,6 @@ import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 
 const PostOptions = (props) => {
   const commentNumber = props.comments.length
-  console.log(props.isLike)
   return (
     <div className='post-options'>
       <div
