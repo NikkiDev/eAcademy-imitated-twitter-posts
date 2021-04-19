@@ -1,3 +1,5 @@
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
+import Loader from 'react-loader-spinner'
 import React, { useState, useEffect } from 'react'
 import TwitterPost from './TwitterPost'
 import { AiOutlineHome, AiOutlineNumber } from 'react-icons/ai'
@@ -8,7 +10,7 @@ import { CgProfile, CgMoreO } from 'react-icons/cg'
 import { FaTwitter } from 'react-icons/fa'
 const TwitterNewsFeed = () => {
   const [posts, setPosts] = useState([])
-  const [postsArr, setPostsArr] = useState([])
+  const [postsArr, setPostsArr] = useState(null)
 
   const getPosts = async () => {
     const response = await fetch('http://jsonplaceholder.typicode.com/posts')
@@ -67,17 +69,23 @@ const TwitterNewsFeed = () => {
         <button type='button'>Tweet</button>
       </header>
       <div>
-        {postsArr.map((post) => {
-          return (
-            <TwitterPost
-              key={post.id}
-              postId={post.id}
-              posts={posts}
-              postsArr={postsArr}
-              setPostsArr={setPostsArr}
-            />
-          )
-        })}
+        {!postsArr ? (
+          <div className='loading'>
+            <Loader type='Oval' color='#00BFFF' height={50} width={50} />
+          </div>
+        ) : (
+          postsArr.map((post) => {
+            return (
+              <TwitterPost
+                key={post.id}
+                postId={post.id}
+                posts={posts}
+                postsArr={postsArr}
+                setPostsArr={setPostsArr}
+              />
+            )
+          })
+        )}
       </div>
     </div>
   )

@@ -10,10 +10,11 @@ const TwitterPost = (props) => {
   const [pic, setPic] = useState('')
   const [comments, setComments] = useState(null)
   const [user, setUser] = useState('')
-  const [isPost, setIsPost] = useState(false)
+  const [isPost, setIsPost] = useState(null)
   const [isLike, setIsLiked] = useState(false)
   const [isComment, setIsComment] = useState(false)
-  const showPost = () => {
+  const showPost = (e) => {
+    console.log(e.target)
     setIsPost(!isPost)
     const singlePost = props.postsArr.filter((post) => post.id === props.postId)
 

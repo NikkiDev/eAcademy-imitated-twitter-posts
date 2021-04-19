@@ -15,8 +15,13 @@ body {
   display: flex;
   justify-content: center;
 }
-.news-feed {
-  display: flex;
+// .news-feed {
+//   display: flex;
+//   flex-direction: column;
+// }
+.loading {
+  position: absolute;
+  top: 40%;
 }
 header {
   display: flex;
@@ -173,7 +178,8 @@ header {
   background-color: #15202b;
   width: 70%;
   border-radius: 10px;
-  z-index: 1000;
+  z-index: 2000;
+  pointer-events: auto;
 }
 
 .background {
@@ -187,7 +193,7 @@ header {
   background-color: rgba(65, 175, 166, 0.8);
   cursor: default;
   pointer-events: auto;
-  z-index: 1000;
+  // z-index: 1000;
 }
 .point {
   pointer-events: none;
