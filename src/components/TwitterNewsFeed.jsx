@@ -9,6 +9,7 @@ import { RiFileListLine } from 'react-icons/ri'
 import { CgProfile, CgMoreO } from 'react-icons/cg'
 import { FaTwitter } from 'react-icons/fa'
 const TwitterNewsFeed = () => {
+  // masivebi romlebshic wamovige data iteraciistvis
   const [posts, setPosts] = useState([])
   const [postsArr, setPostsArr] = useState(null)
 
@@ -21,6 +22,7 @@ const TwitterNewsFeed = () => {
   useEffect(() => {
     const newPosts = async () => {
       const newPostsArr = await getPosts()
+      // aq vsetav 2 masivs erti da igive infoti  TwitterPost>showPost-shi mixvdebi ratomac. ar momwons ese da vfiqrob amashia problema 2 click ro chirdeba
       setPosts(newPostsArr)
       setPostsArr(newPostsArr)
     }

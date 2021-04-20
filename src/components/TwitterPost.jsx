@@ -10,16 +10,16 @@ const TwitterPost = (props) => {
   const [pic, setPic] = useState('')
   const [comments, setComments] = useState(null)
   const [user, setUser] = useState('')
-  const [isPost, setIsPost] = useState(null)
+  const [isPost, setIsPost] = useState(false)
   const [isLike, setIsLiked] = useState(false)
   const [isComment, setIsComment] = useState(false)
-  const showPost = (e) => {
-    console.log(e.target)
-    setIsPost(!isPost)
+  // showPost <<< amit xdeba calke postis gamoyofa
+  const showPost = () => {
     const singlePost = props.postsArr.filter((post) => post.id === props.postId)
-
+    setIsPost(!isPost)
     isPost ? props.setPostsArr(singlePost) : props.setPostsArr(props.posts)
   }
+  // <<<<<<<<<<<<<<<<<<<<<<<<<
   const closeComments = (e) => {
     e.stopPropagation()
     if (commentRef.current && !commentRef.current.contains(e.target)) {
@@ -64,17 +64,17 @@ const TwitterPost = (props) => {
     const data = await response.json()
     return data
   }
-  const PostCompl = async (id) => {
-    const newPost = await getPost(id)
-    const newPhoto = await getPhoto(newPost.id)
-    const newUser = await getUser(newPost.userId)
-    const newComment = await getComment(newPost.id)
-    setPost(newPost)
-    setUser(newUser)
-    setComments(newComment)
-    setPic(newPhoto)
-  }
   useEffect(() => {
+    const PostCompl = async (id) => {
+      const newPost = await getPost(id)
+      const newPhoto = await getPhoto(newPost.id)
+      const newUser = await getUser(newPost.userId)
+      const newComment = await getComment(newPost.id)
+      setPost(newPost)
+      setUser(newUser)
+      setComments(newComment)
+      setPic(newPhoto)
+    }
     PostCompl(props.postId)
   }, [])
   return (
