@@ -16,8 +16,9 @@ const TwitterPost = (props) => {
   // showPost <<< amit xdeba calke postis gamoyofa
   const showPost = () => {
     const singlePost = props.postsArr.filter((post) => post.id === props.postId)
-    setIsPost(!isPost)
-    isPost ? props.setPostsArr(singlePost) : props.setPostsArr(props.posts)
+    const toggle = !isPost
+    setIsPost(toggle)
+    toggle ? props.setPostsArr(singlePost) : props.setPostsArr(props.posts)
   }
   // <<<<<<<<<<<<<<<<<<<<<<<<<
   const closeComments = (e) => {
@@ -76,7 +77,7 @@ const TwitterPost = (props) => {
       setPic(newPhoto)
     }
     PostCompl(props.postId)
-  }, [])
+  }, [props.postId])
   return (
     post &&
     user &&
